@@ -11,3 +11,11 @@ class TestAgendamento(TestCase):
 
         resultado = agendamento.processar_agendamento(data_agendamento, hora_agendamento)
         self.assertTrue(resultado)
+
+    def test_nao_deve_agendar_quando_horario_nao_existir(self):
+        agendamento = Agendamento()
+
+        data_agendamento = "30-04-2026"
+        hora_agendamento_inexistente = "00:00"
+
+        self.assertRaises(ValueError, agendamento.processar_agendamento, data_agendamento, hora_agendamento_inexistente)

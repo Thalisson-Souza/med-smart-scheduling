@@ -13,6 +13,9 @@ class Agendamento:
     
         if data_agendamento not in self.agenda:
             raise ValueError("data não encontrada")
+        
+        if horario_agendamento == "00:00":
+            raise ValueError("Horario invalido")
 
         return True
 
