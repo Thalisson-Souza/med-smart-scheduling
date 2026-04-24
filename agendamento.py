@@ -12,10 +12,10 @@ class Agendamento:
     def processar_agendamento(self, data_agendamento, horario_agendamento):
     
         if data_agendamento not in self.agenda:
-            raise ValueError("data não encontrada")
+            raise ValueError("data não encontrada para agendamento")
         
-        if horario_agendamento == "00:00":
-            raise ValueError("Horario invalido")
+        if horario_agendamento not in self.agenda[data_agendamento]:
+            raise ValueError("horário não existe para a data informada")
 
         return True
 
