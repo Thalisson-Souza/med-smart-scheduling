@@ -18,6 +18,9 @@ class Agendamento:
         
         if horario_agendamento not in self.agenda[data_agendamento]:
             raise ValueError("horário não existe para a data informada")
+        
+        if not self.agenda [data_agendamento][horario_agendamento]:
+            raise ValueError("horário indisponivel para agendamento")
 
         return True
 

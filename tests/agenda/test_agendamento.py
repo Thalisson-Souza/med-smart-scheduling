@@ -26,4 +26,8 @@ class TestAgendamento(TestCase):
 
         self.assertRaises(ValueError, self.agendamento.processar_agendamento, data_inexistente, hora)
 
-    
+    def test_nao_deve_agendar_quando_horario_esta_indisponivel(self):
+        data = date(2026, 4, 30)
+        hora_indisponivel_na_agenda = time(9,0)
+
+        self.assertRaises(ValueError, self.agendamento.processar_agendamento, data, hora_indisponivel_na_agenda)
