@@ -28,3 +28,8 @@ class TestMedico(TestCase):
         with self.assertRaises(ValueError):
             Medico(None, time(8,0), time(12,0))     
 
+    def test_nao_deve_ter_hora_inicio_maior_que_hora_fim(self):
+        with self.assertRaises(ValueError) as context:
+            Medico("Dr. House", time(12,0), time(8,0))
+
+        self.assertEqual(str(context.exception), "horário invalido")

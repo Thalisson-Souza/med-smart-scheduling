@@ -5,6 +5,8 @@ class Medico:
         if not nome:
             raise ValueError("nome do médico é obrigatório")
 
+        if hora_inicio >= hora_fim:
+            raise ValueError("horário invalido")
 
         self.__nome = nome
         self.__hora_inicio = hora_inicio
