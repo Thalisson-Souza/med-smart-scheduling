@@ -24,3 +24,7 @@ class TestMedico(TestCase):
 
         self.assertFalse(medico.esta_disponivel_no_horario(time(12,0)))
 
+    def test_nao_deve_registrar_agendamento_de_medico_sem_nome(self):
+        with self.assertRaises(ValueError):
+            Medico(None, time(8,0), time(12,0))     
+
