@@ -1,11 +1,13 @@
+from datetime import date, time
+
 class Agendamento:
     
     agenda = {
-        "30-04-2026": {
-            "08:00": True,
-            "09:00": False,
-            "10:00": True,
-            "14:00": True,
+        date(2026, 4, 30): {
+            time(8,0): True,
+            time(9,0): False,
+            time(10,0): True,
+            time(11,0): True,
         }
     }
 
