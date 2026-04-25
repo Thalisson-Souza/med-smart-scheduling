@@ -7,6 +7,8 @@ class Agendamento:
             time(9,0): False,
             time(10,0): True,
             time(11,0): True,
+            time(14,0): True,
+            time(15,0): True
         }
     }
 
@@ -22,12 +24,15 @@ class Agendamento:
         if not self.agenda [data][horario]:
             raise ValueError("horário indisponivel para agendamento")
         
+    def _validar_horario_de_atendimento_do_medico(self, medico:Medico, horario):
+        if not medico.esta_disponivel_no_horario(horario):
+            raise ValueError("médico não está disponivel nesse horário")
 
-    def processar_agendamento(self, data_agendamento, horario_agendamento):
+    def processar_agendamento(self, medico, data_agendamento, horario_agendamento):
+        self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
         self._validar_data_do_agendamento(data_agendamento)
         self._validar_horario_do_agendamento(horario_agendamento, data_agendamento)
         self._verificar_se_horario_esta_disponivel(data_agendamento, horario_agendamento)
-
 
         return True
 
