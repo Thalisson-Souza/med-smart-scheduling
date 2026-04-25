@@ -12,27 +12,27 @@ class Agendamento:
         }
     }
 
-    def _validar_data_do_agendamento(self, data):
-        if data not in self.agenda:
+    def _validar_data_do_agendamento(self, data_agendamento):
+        if data_agendamento not in self.agenda:
             raise ValueError("data não encontrada para agendamento")
         
-    def _validar_horario_do_agendamento(self, horario, data):
-        if horario not in self.agenda[data]:
+    def _validar_horario_do_agendamento(self, data_agendamento, horario_agendamento):
+        if horario_agendamento not in self.agenda[data_agendamento]:
             raise ValueError("horário não existe para a data informada")
 
-    def _verificar_se_horario_esta_disponivel(self, data, horario):
-        if not self.agenda [data][horario]:
-            raise ValueError("horário indisponivel para agendamento")
+    def _validar_horario_disponivel(self, data_agendamento, horario_agendamento):
+        if not self.agenda [data_agendamento][horario_agendamento]:
+            raise ValueError("horário indisponível para agendamento")
         
-    def _validar_horario_de_atendimento_do_medico(self, medico:Medico, horario):
-        if not medico.esta_disponivel_no_horario(horario):
-            raise ValueError("médico não está disponivel nesse horário")
+    def _validar_horario_de_atendimento_do_medico(self, medico: Medico, horario_agendamento):
+        if not medico.esta_disponivel_no_horario(horario_agendamento):
+            raise ValueError("médico não está disponível nesse horário")
 
-    def processar_agendamento(self, medico, data_agendamento, horario_agendamento):
-        self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
+    def processar_agendamento(self, medico: Medico, data_agendamento, horario_agendamento):
         self._validar_data_do_agendamento(data_agendamento)
-        self._validar_horario_do_agendamento(horario_agendamento, data_agendamento)
-        self._verificar_se_horario_esta_disponivel(data_agendamento, horario_agendamento)
+        self._validar_horario_do_agendamento(data_agendamento, horario_agendamento)
+        self._validar_horario_disponivel(data_agendamento, horario_agendamento)
+        self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
 
         return True
 
