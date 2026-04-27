@@ -4,22 +4,22 @@ from src.medico import Medico
 
 class TestMedico(TestCase):
 
-    def test_nao_deve_permitir_registrar_agendamento_fora_do_horario_de_atendimento(self):
+    def test_nao_deve_permitir_horario_fora_do_atendimento(self):
         medico = Medico("Dr. House", time(8,0), time(12,0))
 
         self.assertFalse(medico.esta_disponivel_no_horario(time(14,00)))
 
-    def test_deve_permitir_registrar_agendamento_dentro_do_horario_de_atendimento(self):
+    def test_deve_permitir_horario_dentro_do_atendimento(self):
         medico = Medico("Dr. House", time(8,0), time(12,0))
 
         self.assertTrue(medico.esta_disponivel_no_horario(time(9,00)))
 
-    def test_deve_permitir_registrar_agendamento_no_limite_inferior_do_horario_de_atendimento(self):
+    def test_deve_permitir_horario_no_limite_inferior_do_atendimento(self):
         medico = Medico("Dr. House", time(8,0), time(12,0))
 
         self.assertTrue(medico.esta_disponivel_no_horario(time(8,0)))
 
-    def test_nao_deve_permitir_registrar_agendamento_no_limite_superior_do_horario_de_atendimento(self):
+    def test_nao_deve_permitir_horario_no_limite_superior_do_atendimento(self):
         medico = Medico("Dr. House", time(8,0), time(12,0))
 
         self.assertFalse(medico.esta_disponivel_no_horario(time(12,0)))
