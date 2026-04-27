@@ -40,3 +40,18 @@ class TestAgendamento(TestCase):
 
         with self.assertRaises(ValueError):
             self.agendamento.processar_agendamento(self.medico, data_agendamento, horario_agendamento_fora_do_atendimento)
+
+
+    def test_deve_cadastrar_agenda_do_medico_com_sucesso(self):
+        medico = Medico(nome="Teste", hora_inicio=time(8,0), hora_fim=time(12,0))
+        
+        agenda_dr_teste = {
+            date(2026, 4, 30): {
+                time(8,0): True,
+                time(9,0): False,
+            }
+        }
+
+        self.agendamento.cadastrar_agenda_medico(medico, agenda_dr_teste)
+        self.assertIn("Teste", self.agendamento.agenda_por_medico)
+        self.assertEqual(self.agendamento.agenda_por_medico["Teste"], agenda_dr_teste)
