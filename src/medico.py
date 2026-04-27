@@ -12,6 +12,9 @@ class Medico:
         self.__hora_inicio = hora_inicio
         self.__hora_fim = hora_fim
 
+    @property
+    def nome(self):
+        return self.__nome
 
     def esta_disponivel_no_horario(self, horario):
         return self.__hora_inicio <= horario < self.__hora_fim
