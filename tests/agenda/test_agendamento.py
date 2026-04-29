@@ -79,3 +79,11 @@ class TestAgendamento(TestCase):
             self.agendamento.processar_agendamento(self.medico, data_agendamento, horario_agendamento)
 
         self.assertEqual(str(context.exception), "conflito de horário, já tem consulta para esse horário")
+
+
+    def test_nao_deve_criar_agendamento_com_duracao_zerada_ou_negativa(self):
+        with self.assertRaises(ValueError):
+            Agendamento(0)
+
+        with self.assertRaises(ValueError):
+            Agendamento(-100)

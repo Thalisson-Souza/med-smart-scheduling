@@ -1,9 +1,14 @@
 from datetime import date, time
 from src.medico import Medico
 class Agendamento:
-    def __init__(self):
+    def __init__(self, duracao_consulta_minutos=30):
+        if duracao_consulta_minutos <= 0:
+            raise ValueError("duração da consulta é menor que igual a zero")
+        
+        self.duracao_consulta_minutos = duracao_consulta_minutos
         self.agendamentos = []
         self.agenda_por_medico = {}
+
 
     def cadastrar_agenda_medico(self, medico: Medico, agenda: dict):
         self.agenda_por_medico[medico.nome] = agenda
