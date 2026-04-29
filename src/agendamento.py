@@ -37,7 +37,7 @@ class Agendamento:
             raise ValueError("médico não está disponível nesse horário")
         
 
-    def _validar_conflito_de_horario(self, medico: Medico, data_agendamento, horario_agendamento):
+    def _validar_conflito_de_horario_na_agenda_do_medico(self, medico: Medico, data_agendamento, horario_agendamento):
         for agendamento in self.agendamentos:
             if (
                 agendamento["medico"] == medico
@@ -51,7 +51,7 @@ class Agendamento:
         self._validar_horario_do_agendamento(data_agendamento, horario_agendamento)
         self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
 
-        self._validar_conflito_de_horario(medico, data_agendamento, horario_agendamento)
+        self._validar_conflito_de_horario_na_agenda_do_medico(medico, data_agendamento, horario_agendamento)
 
         self._validar_horario_disponivel(data_agendamento, horario_agendamento)
 
