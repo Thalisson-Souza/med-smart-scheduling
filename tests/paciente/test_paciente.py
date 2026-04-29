@@ -7,3 +7,7 @@ class TestPaciente(TestCase):
     def test_nao_deve_criar_paciente_sem_nome(self):
         with self.assertRaises(ValueError):
             Paciente(nome=None, cpf="00011122233")
+
+    def test_nao_deve_criar_paciente_sem_cpf(self):
+        with self.assertRaises(ValueError):
+            Paciente(nome="João", cpf=None)

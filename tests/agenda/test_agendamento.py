@@ -55,3 +55,15 @@ class TestAgendamento(TestCase):
         self.agendamento.cadastrar_agenda_medico(medico, agenda_dr_teste)
         self.assertIn("Teste", self.agendamento.agenda_por_medico)
         self.assertEqual(self.agendamento.agenda_por_medico["Teste"], agenda_dr_teste)
+
+
+    def test_nao_deve_agendar_quando_medico_ja_possui_consulta_no_mesmo_horario(self):
+        data_agendamento = date(2026, 4, 30)
+        horario_agendamento = time(10,0)
+
+        self.agendamento.processar_agendamento(self.medico, data_agendamento, horario_agendamento)
+
+        with self.assertRaises(ValueError) as context:
+            self.agendamento.processar_agendamento(self.medico, data_agendamento, horario_agendamento)
+
+        self.assertEqual(str(context.exception), "conflito de horário, já tem consulta para esse horário")

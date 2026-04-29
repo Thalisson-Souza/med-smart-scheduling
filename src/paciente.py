@@ -3,6 +3,9 @@ class Paciente:
         if not nome:
             raise ValueError("nome do paciente é obrigatório")
 
+        if not cpf:
+            raise ValueError("cpf do paciente é obrigatório")
+
         self.__nome = nome
         self.__cpf = cpf
     
