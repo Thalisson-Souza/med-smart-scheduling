@@ -8,6 +8,18 @@ class TestAgendamento(TestCase):
         self.agendamento = Agendamento()
         self.medico = Medico("Dr. House", time(8,0), time(12,0))
 
+        agenda_dr_house = {
+        date(2026, 4, 30): {
+            time(8,0): True,
+            time(9,0): False,
+            time(10,0): True,
+            time(11,0): True,
+            time(14,0): True,
+            time(15,0): True
+            }
+        }   
+        self.agendamento.cadastrar_agenda_medico(self.medico, agenda_dr_house)
+
     def test_deve_agendar_com_sucesso_quando_data_e_horario_estiverem_disponiveis(self):
         data_agendamento = date(2026, 4, 30)
         horario_agendamento = time(8,0)
