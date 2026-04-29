@@ -3,33 +3,29 @@ from src.medico import Medico
 class Agendamento:
     def __init__(self):
         self.agendamentos = []
-
-        self.agenda = {
-        date(2026, 4, 30): {
-            time(8,0): True,
-            time(9,0): False,
-            time(10,0): True,
-            time(11,0): True,
-            time(14,0): True,
-            time(15,0): True
-            }
-        }    
-
         self.agenda_por_medico = {}
 
     def cadastrar_agenda_medico(self, medico: Medico, agenda: dict):
         self.agenda_por_medico[medico.nome] = agenda
 
-    def _validar_data_do_agendamento(self, data_agendamento):
-        if data_agendamento not in self.agenda:
+    def _obter_agenda_do_medico(self, medico: Medico):
+        agenda_medico = self.agenda_por_medico.get(medico.nome)
+
+        if agenda_medico is None:
+            raise ValueError("médico não tem agenda cadastrada")
+        return agenda_medico
+    
+
+    def _validar_data_do_agendamento(self, agenda_medico, data_agendamento):
+        if data_agendamento not in agenda_medico:
             raise ValueError("data não encontrada para agendamento")
         
-    def _validar_horario_do_agendamento(self, data_agendamento, horario_agendamento):
-        if horario_agendamento not in self.agenda[data_agendamento]:
+    def _validar_horario_do_agendamento(self, agenda_medico, data_agendamento, horario_agendamento):
+        if horario_agendamento not in agenda_medico[data_agendamento]:
             raise ValueError("horário não existe para a data informada")
 
-    def _validar_horario_disponivel(self, data_agendamento, horario_agendamento):
-        if not self.agenda [data_agendamento][horario_agendamento]:
+    def _validar_horario_disponivel(self, agenda_medico, data_agendamento, horario_agendamento):
+        if not agenda_medico [data_agendamento][horario_agendamento]:
             raise ValueError("horário indisponível para agendamento")
         
     def _validar_horario_de_atendimento_do_medico(self, medico: Medico, horario_agendamento):
@@ -47,14 +43,13 @@ class Agendamento:
                 raise ValueError("conflito de horário, já tem consulta para esse horário")
 
     def processar_agendamento(self, medico: Medico, data_agendamento, horario_agendamento):
-        self._validar_data_do_agendamento(data_agendamento)
-        self._validar_horario_do_agendamento(data_agendamento, horario_agendamento)
+        agenda_medico = self._obter_agenda_do_medico(medico)
+
+        self._validar_data_do_agendamento(agenda_medico, data_agendamento)
+        self._validar_horario_do_agendamento(agenda_medico, data_agendamento, horario_agendamento)
         self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
-
         self._validar_conflito_de_horario_na_agenda_do_medico(medico, data_agendamento, horario_agendamento)
-
-        self._validar_horario_disponivel(data_agendamento, horario_agendamento)
-
+        self._validar_horario_disponivel(agenda_medico, data_agendamento, horario_agendamento)
 
         self.agendamentos.append({
             "medico":medico, 
@@ -62,7 +57,7 @@ class Agendamento:
             "horario": horario_agendamento
         })
 
-        self.agenda[data_agendamento][horario_agendamento] = False
+        agenda_medico[data_agendamento][horario_agendamento] = False
 
         return True
 
