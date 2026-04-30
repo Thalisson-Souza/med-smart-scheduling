@@ -11,6 +11,9 @@ class Consulta:
         
         if not data_consulta:
             raise ValueError("data da consulta inválida ou não informada")
+        
+        if not hora_consulta:
+            raise ValueError("horário da consulta é obrigatório")
 
         self._medico = medico
         self._paciente = paciente
