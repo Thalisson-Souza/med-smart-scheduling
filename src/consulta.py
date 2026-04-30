@@ -8,6 +8,9 @@ class Consulta:
         
         if not paciente:
             raise ValueError("paciente é obrigatório para consulta")
+        
+        if not data_consulta:
+            raise ValueError("data da consulta inválida ou não informada")
 
         self._medico = medico
         self._paciente = paciente
