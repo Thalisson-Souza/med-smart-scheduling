@@ -1,5 +1,7 @@
 from datetime import date, time
 from src.medico import Medico
+from src.consulta import Consulta
+
 class Agendamento:
     def __init__(self, duracao_consulta_minutos=30):
         if duracao_consulta_minutos <= 0:
@@ -29,7 +31,7 @@ class Agendamento:
             raise ValueError("horário não existe para a data informada")
 
     def _validar_horario_disponivel(self, agenda_medico, data_agendamento, horario_agendamento):
-        if not agenda_medico[data_agendamento][horario_agendamento]:
+        if agenda_medico[data_agendamento][horario_agendamento] is not None:
             raise ValueError("horário indisponível para agendamento")
         
     def _validar_horario_de_atendimento_do_medico(self, medico: Medico, horario_agendamento):
@@ -37,7 +39,7 @@ class Agendamento:
             raise ValueError("horário fora do período de atendimento do médico")
         
 
-    def processar_agendamento(self, medico: Medico, data_agendamento, horario_agendamento):
+    def processar_agendamento(self, medico: Medico, paciente, data_agendamento, horario_agendamento):
         agenda_medico = self._obter_agenda_do_medico(medico)
 
         self._validar_data_do_agendamento(agenda_medico, data_agendamento)
@@ -45,8 +47,6 @@ class Agendamento:
         self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
         self._validar_horario_disponivel(agenda_medico, data_agendamento, horario_agendamento)
 
-        agenda_medico[data_agendamento][horario_agendamento] = False
+        agenda_medico[data_agendamento][horario_agendamento] = Consulta(medico, paciente, data_agendamento, horario_agendamento)
 
         return True
-
-    
