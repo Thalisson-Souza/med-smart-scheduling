@@ -65,8 +65,8 @@ class TestAgendamento(TestCase):
         }
 
         self.agendamento.cadastrar_agenda_medico(medico, agenda_dr_teste)
-        self.assertIn("Teste", self.agendamento.agenda_por_medico)
-        self.assertEqual(self.agendamento.agenda_por_medico["Teste"], agenda_dr_teste)
+        self.assertIn(medico, self.agendamento.agenda_por_medico)
+        self.assertEqual(self.agendamento.agenda_por_medico[medico], agenda_dr_teste)
 
 
     def test_nao_deve_agendar_quando_medico_ja_possui_consulta_no_mesmo_horario(self):
@@ -78,7 +78,7 @@ class TestAgendamento(TestCase):
         with self.assertRaises(ValueError) as context:
             self.agendamento.processar_agendamento(self.medico, data_agendamento, horario_agendamento)
 
-        self.assertEqual(str(context.exception), "conflito de horário, já tem consulta para esse horário")
+        self.assertEqual(str(context.exception), "horário indisponível para agendamento")
 
 
     def test_nao_deve_criar_agendamento_com_duracao_zerada_ou_negativa(self):
