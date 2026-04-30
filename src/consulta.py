@@ -5,6 +5,9 @@ class Consulta:
     def __init__(self, medico, paciente, data_consulta, hora_consulta):
         if not medico:
             raise ValueError("médico é obrigatório para consulta")
+        
+        if not paciente:
+            raise ValueError("paciente é obrigatório para consulta")
 
         self._medico = medico
         self._paciente = paciente

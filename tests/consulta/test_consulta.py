@@ -13,3 +13,11 @@ class TestConsulta(TestCase):
             Consulta(None, paciente, date(2026,4,30), time(9,00))
         
         self.assertEqual(str(context.exception), "médico é obrigatório para consulta")
+
+    def test_nao_deve_criar_uma_consulta_sem_paciente(self):
+        medico = Medico(nome="Dr. House", hora_inicio=time(8,0), hora_fim=time(12,0))
+
+        with self.assertRaises(ValueError) as context:
+            Consulta("Dr. House", None, date(2026,4,30), time(9,00))
+
+        self.assertEqual(str(context.exception), "paciente é obrigatório para consulta")
