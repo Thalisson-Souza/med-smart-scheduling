@@ -1,6 +1,6 @@
 from unittest import TestCase
 from datetime import datetime, date, time
-from src.medico import Medico
+from src.domain.medico import Medico
 
 class TestMedico(TestCase):
 

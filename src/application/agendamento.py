@@ -1,6 +1,6 @@
 from datetime import date, time
-from src.medico import Medico
-from src.consulta import Consulta
+from src.domain.medico import Medico
+from src.domain.consulta import Consulta
 
 class Agendamento:
     def __init__(self, duracao_consulta_minutos=30):

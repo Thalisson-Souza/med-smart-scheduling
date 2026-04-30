@@ -1,8 +1,8 @@
 from unittest import TestCase
 from datetime import datetime, date, time
-from src.consulta import Consulta
-from src.medico import Medico
-from src.paciente import Paciente
+from src.domain.consulta import Consulta
+from src.domain.medico import Medico
+from src.domain.paciente import Paciente
 
 class TestConsulta(TestCase):
 

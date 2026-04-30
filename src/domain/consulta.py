@@ -1,5 +1,5 @@
-from src.medico import Medico
-from src.paciente import Paciente
+from src.domain.medico import Medico
+from src.domain.paciente import Paciente
 
 class Consulta:
     def __init__(self, medico, paciente, data_consulta, hora_consulta):
