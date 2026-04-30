@@ -10,7 +10,7 @@ class Consulta:
             raise ValueError("paciente é obrigatório para consulta")
         
         if not data_consulta:
-            raise ValueError("data da consulta inválida ou não informada")
+            raise ValueError("data da consulta é obrigatória")
         
         if not hora_consulta:
             raise ValueError("horário da consulta é obrigatório")
