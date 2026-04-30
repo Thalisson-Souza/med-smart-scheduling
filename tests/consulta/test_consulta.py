@@ -39,3 +39,15 @@ class TestConsulta(TestCase):
             Consulta(medico, paciente, date(2026,4,30), None)
 
         self.assertEqual(str(context.exception), "horário da consulta é obrigatório")
+
+    def test_deve_criar_consulta_com_dados_validos(self):
+        medico = Medico(nome="Dr. House", hora_inicio=time(8,0), hora_fim=time(12,0))
+        paciente = Paciente(nome="Romário", cpf="000111222333")
+
+        consulta = Consulta(medico, paciente, date(2026,4,30), time(9,0))
+
+        self.assertEqual(consulta.medico, medico)
+        self.assertEqual(consulta.paciente, paciente)
+        self.assertEqual(consulta.data, date(2026,4,30))
+        self.assertEqual(consulta.horario, time(9,0))
+
