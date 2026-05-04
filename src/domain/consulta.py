@@ -2,14 +2,17 @@ from src.domain.medico import Medico
 from src.domain.paciente import Paciente
 
 class Consulta:
-    def __init__(self, medico, paciente, data_consulta, hora_consulta):
+    def __init__(self, medico: Medico, paciente: Paciente, data_consulta, hora_consulta):
         if not medico:
             raise ValueError("médico é obrigatório para consulta")
         
         if not paciente:
             raise ValueError("paciente é obrigatório para consulta")
         
-        if not data_consulta:
+        if not isinstance(medico, Medico):
+            raise ValueError("médico recebido não é uma instância de médico válida")
+        
+        if not data_consulta:   
             raise ValueError("data da consulta é obrigatória")
         
         if hora_consulta is None:

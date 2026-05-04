@@ -51,3 +51,10 @@ class TestConsulta(TestCase):
         self.assertEqual(consulta.data, date(2026,4,30))
         self.assertEqual(consulta.horario, time(9,0))
 
+    def test_nao_deve_criar_consulta_com_instancia_de_medico_invalida(self):
+        paciente = Paciente(nome="Romário", cpf="000111222333")
+
+        with self.assertRaises(ValueError) as context:
+            Consulta("Dr. House", paciente, date(2026,4,30), time(9,0))
+
+        self.assertEqual(str(context.exception), "médico recebido não é uma instância de médico válida")
