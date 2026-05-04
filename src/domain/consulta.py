@@ -12,6 +12,9 @@ class Consulta:
         if not isinstance(medico, Medico):
             raise ValueError("médico recebido não é uma instância de médico válida")
         
+        if not isinstance(paciente, Paciente):
+            raise ValueError("paciente recebido não é uma instância de paciente válida")
+        
         if not data_consulta:   
             raise ValueError("data da consulta é obrigatória")
         
