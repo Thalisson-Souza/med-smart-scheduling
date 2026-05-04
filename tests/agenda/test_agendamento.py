@@ -117,3 +117,22 @@ class TestAgendamento(TestCase):
         self.assertIn(time(9,0), horarios)
 
 
+    def test_nao_deve_agendar_quando_horario_nao_respeita_duracao_padrao_de_consulta(self):
+        agendamento = Agendamento(30)
+        medico = Medico("Dr. House", time(8,0), time(12,0))
+        paciente = Paciente("Paciente Teste", "00011122233")
+
+        agenda_medico = {
+            date(2026, 4, 30): {
+                time(8,0): None,
+                time(8,30): None,
+                time(9,0): None,
+            }
+        }
+
+        agendamento.cadastrar_agenda_medico(medico, agenda_medico)
+
+        with self.assertRaises(ValueError) as context:
+            agendamento.processar_agendamento(medico, paciente, date(2026,4,30), time(8,15))
+
+        self.assertEqual(str(context.exception), "horário inválido para duração padrão da consulta")

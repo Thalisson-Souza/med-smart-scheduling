@@ -36,6 +36,10 @@ class Agendamento:
         if data_agendamento not in agenda_medico:
             raise ValueError("data não encontrada para agendamento")
         
+    def _validar_se_horario_respeita_duracao_da_consulta(self, horario_agendamento):
+        if horario_agendamento.minute % self.duracao_consulta_minutos != 0:
+            raise ValueError("horário inválido para duração padrão da consulta")
+        
     def _validar_horario_do_agendamento(self, agenda_medico, data_agendamento, horario_agendamento):
         if horario_agendamento not in agenda_medico[data_agendamento]:
             raise ValueError("horário não existe para a data informada")
@@ -53,6 +57,7 @@ class Agendamento:
         agenda_medico = self._obter_agenda_do_medico(medico)
 
         self._validar_data_do_agendamento(agenda_medico, data_agendamento)
+        self._validar_se_horario_respeita_duracao_da_consulta(horario_agendamento)
         self._validar_horario_do_agendamento(agenda_medico, data_agendamento, horario_agendamento)
         self._validar_horario_de_atendimento_do_medico(medico, horario_agendamento)
         self._validar_horario_disponivel(agenda_medico, data_agendamento, horario_agendamento)
