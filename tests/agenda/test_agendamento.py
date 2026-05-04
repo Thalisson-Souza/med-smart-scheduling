@@ -68,8 +68,8 @@ class TestAgendamento(TestCase):
         }
 
         self.agendamento.cadastrar_agenda_medico(medico, agenda_dr_teste)
-        self.assertIn(medico, self.agendamento.agenda_por_medico)
-        self.assertEqual(self.agendamento.agenda_por_medico[medico], agenda_dr_teste)
+        self.assertIn(medico, self.agendamento._agenda_por_medico)
+        self.assertEqual(self.agendamento._agenda_por_medico[medico], agenda_dr_teste)
 
 
     def test_nao_deve_agendar_quando_medico_ja_possui_consulta_no_mesmo_horario(self):

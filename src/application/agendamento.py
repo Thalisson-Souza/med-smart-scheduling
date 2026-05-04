@@ -8,14 +8,16 @@ class Agendamento:
             raise ValueError("duração da consulta é menor que igual a zero")
         
         self.duracao_consulta_minutos = duracao_consulta_minutos
-        self.agenda_por_medico = {}
+        self._agenda_por_medico = {}
 
+    def listar_consultas_do_medico(self, medico):
+        return list(self._agenda_por_medico.get(medico, []))
 
     def cadastrar_agenda_medico(self, medico: Medico, agenda: dict):
-        self.agenda_por_medico[medico] = agenda
+        self._agenda_por_medico[medico] = agenda
 
     def _obter_agenda_do_medico(self, medico: Medico):
-        agenda_medico = self.agenda_por_medico.get(medico)
+        agenda_medico = self._agenda_por_medico.get(medico)
 
         if agenda_medico is None:
             raise ValueError("médico não tem agenda cadastrada")
