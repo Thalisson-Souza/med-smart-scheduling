@@ -9,6 +9,7 @@ class TestPaciente(TestCase):
             Paciente(nome=None, cpf="00011122233")
 
     def test_deve_criar_paciente_com_sucesso(self):
-        resultado = Paciente(nome="João", cpf="00011122233")
+        paciente = Paciente(nome="João", cpf="00011122233")
         
-        self.assertTrue(resultado)
+        self.assertEqual(paciente.nome, "João")
+        self.assertEqual(paciente.cpf, "00011122233")
