@@ -11,7 +11,15 @@ class Agendamento:
         self._agenda_por_medico = {}
 
     def listar_consultas_do_medico(self, medico):
-        return list(self._agenda_por_medico.get(medico, []))
+        agenda_medico = self._agenda_por_medico.get(medico, {})
+        consultas = []
+
+        for horarios_da_data in agenda_medico.values():
+            for consulta in horarios_da_data.values():
+                if consulta is not None:
+                    consultas.append(consulta)
+            
+        return consultas
 
     def cadastrar_agenda_medico(self, medico: Medico, agenda: dict):
         self._agenda_por_medico[medico] = agenda

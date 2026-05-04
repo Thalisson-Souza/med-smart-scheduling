@@ -90,3 +90,30 @@ class TestAgendamento(TestCase):
 
         with self.assertRaises(ValueError):
             Agendamento(-100)
+
+
+    def test_deve_listar_agenda_do_medico_se_existir_agendamento(self):
+        medico = Medico(nome="Teste", hora_inicio=time(8,0), hora_fim=time(12,0))
+        
+        agenda_dr_teste_listagem = {
+            date(2026, 4, 30): {
+                time(8,0): None,
+                time(9,0): None,
+            }
+        }
+        self.agendamento.cadastrar_agenda_medico(medico, agenda_dr_teste_listagem)
+
+        paciente_1 = Paciente(nome="Paciente 1", cpf="00011122233")
+        paciente_2 = Paciente(nome="Paciente 2", cpf="11122233344")
+
+        self.agendamento.processar_agendamento(medico, paciente_1, date(2026,4,30), time(8,0))
+        self.agendamento.processar_agendamento(medico, paciente_2, date(2026,4,30), time(9,0))
+
+        consultas = self.agendamento.listar_consultas_do_medico(medico)
+
+        horarios = [consulta.horario for consulta in consultas]
+        self.assertEqual(len(consultas), 2)
+        self.assertIn(time(8,0), horarios)
+        self.assertIn(time(9,0), horarios)
+
+
