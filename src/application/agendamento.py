@@ -10,6 +10,14 @@ class Agendamento:
         self.duracao_consulta_minutos = duracao_consulta_minutos
         self._agenda_por_medico = {}
 
+    def listar_horarios_do_medico(self, medico: Medico, data_agendamento: date):
+        agenda_medico = self._obter_agenda_do_medico(medico)
+
+        if data_agendamento not in agenda_medico:
+            raise ValueError("data de agendamento não encontrada")
+
+        return list(agenda_medico[data_agendamento].keys())
+
     def listar_consultas_do_medico(self, medico):
         agenda_medico = self._agenda_por_medico.get(medico, {})
         consultas = []
