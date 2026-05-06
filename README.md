@@ -73,7 +73,7 @@ Clone o repositório:
 git clone https://github.com/Thalisson-Souza/med-smart-scheduling
 ```
 Entre na pasta do projeto:
-```
+```bash
 cd med-smart-scheduling
 ```
 
@@ -83,3 +83,28 @@ Execute os testes:
 python3 -m unittest -v
 ```
 
+## Demonstração dos Critérios de Aceitação
+
+O projeto possui um fluxo simples no terminal para demonstrar os cenários definidos no PRD do MVP.
+
+Execute:
+
+```bash
+python3 -m src.main
+```
+
+O fluxo apresenta três cenários:
+
+- **Cenário 1 - Agendamento com sucesso:**  
+  O médico **Dr. House** atende das **08:00 às 12:00**.  
+  Ao tentar agendar uma consulta para **09:00**, sem conflito prévio, o sistema confirma o agendamento com sucesso.
+
+- **Cenário 2 - Erro por fora do horário de atendimento:**  
+  O médico **Dr. House** atende das **08:00 às 12:00**.  
+  Ao tentar agendar uma consulta para **14:00**, o sistema rejeita o agendamento informando que o médico não está disponível nesse horário.
+
+- **Cenário 3 - Erro por conflito de horário:**  
+  O médico **Dr. House** já possui uma consulta marcada às **10:00**.  
+  Ao tentar agendar uma nova consulta às **10:00**, o sistema rejeita o agendamento por conflito de horário.
+
+Em todos os cenários, a consulta possui duração fixa de **30 minutos**.
